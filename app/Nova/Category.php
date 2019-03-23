@@ -2,28 +2,27 @@
 
 namespace App\Nova;
 
-use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Http\Requests\NovaRequest;
 
-class TermTaxonomy extends Resource
+class Category extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'App\TermTaxonomy';
+    public static $model = 'App\Category';
 
-    public static $sort = ['description' => 'asc'];
+    public static $sort = ['name' => 'asc'];
 
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'description';
+    public static $title = 'name';
 
     /**
      * The columns that should be searched.
@@ -31,7 +30,7 @@ class TermTaxonomy extends Resource
      * @var array
      */
     public static $search = [
-        'description',
+        'name',
     ];
 
     /**
@@ -43,8 +42,10 @@ class TermTaxonomy extends Resource
     public function fields(Request $request)
     {
         return [
-            ID::make('ID', 'term_taxonomy_id')->sortable(),
-            Text::make('description'),
+            Text::make('name')->sortable(),
+            Text::make('slug')->sortable(),
+
+            BelongsToMany::make('Post'),
         ];
     }
 

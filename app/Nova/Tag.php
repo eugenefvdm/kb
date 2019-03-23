@@ -2,26 +2,27 @@
 
 namespace App\Nova;
 
-use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\Number;
-use Laravel\Nova\Http\Requests\NovaRequest;
+use Laravel\Nova\Fields\BelongsToMany;
+use Laravel\Nova\Fields\Text;
 
-class TermRelationship extends Resource
+class Tag extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'App\TermRelationship';
+    public static $model = 'App\Tag';
+
+    public static $sort = ['name' => 'asc'];
 
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'object_id';
+    public static $title = 'name';
 
     /**
      * The columns that should be searched.
@@ -29,7 +30,7 @@ class TermRelationship extends Resource
      * @var array
      */
     public static $search = [
-        'object_id',
+        'name',
     ];
 
     /**
@@ -41,9 +42,10 @@ class TermRelationship extends Resource
     public function fields(Request $request)
     {
         return [
-            Number::make('object_id'),
-            Number::make('term_taxonomy_id'),
-            Number::make('term_order'),
+            Text::make('name')->sortable(),
+            Text::make('slug')->sortable(),
+
+            BelongsToMany::make('Post'),
         ];
     }
 

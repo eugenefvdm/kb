@@ -7,21 +7,29 @@ use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 
-class Attribute extends Resource
+class PostMeta extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'App\Attribute';
+    public static $model = 'App\Postmeta';
+
+    public static $sort = ['meta_id' => 'desc'];
+
+    public static function label() { return 'Post Meta'; }
 
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'meta_id';
+    public static $title = 'meta_value';
+
+    public function subtitle() {
+        return "{$this->meta_key}";
+    }
 
     /**
      * The columns that should be searched.
@@ -29,7 +37,7 @@ class Attribute extends Resource
      * @var array
      */
     public static $search = [
-        'id',
+        'meta_id',
     ];
 
     /**

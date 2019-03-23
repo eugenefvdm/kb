@@ -17,6 +17,8 @@ class Term extends Resource
      */
     public static $model = 'App\Term';
 
+    public static $sort = ['name' => 'asc'];
+
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
@@ -30,7 +32,7 @@ class Term extends Resource
      * @var array
      */
     public static $search = [
-        'id',
+        'name',
     ];
 
     /**

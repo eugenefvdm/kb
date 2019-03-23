@@ -14,7 +14,7 @@ class KnowledgebaseTableSeeder extends Seeder
     {
 
         $post_id = DB::table('wp_posts')->insertGetId([
-            'post_title'            => "Eugene's Second KB by Code",
+            'post_title'            => "Eugene's 3rd KB by Code",
             'post_name'             => "eugenes-first-kb-by-code",
             'post_content'          => "Hello World!",
             'post_type'             => "knowledgebase",
@@ -74,6 +74,13 @@ class KnowledgebaseTableSeeder extends Seeder
         DB::table('wp_term_relationships')->insert([
             'object_id'        => $post_id,
             'term_taxonomy_id' => $term_taxonomy_id,
+        ]);
+
+        Db::table('wp_post_views')->insert([
+            'id'     => $post_id,
+            'type'   => 4,
+            'period' => 'total',
+            'count'  => 9
         ]);
 
     }
