@@ -29,6 +29,8 @@
             padding: 1em 1.5em;
             display: block;
             word-wrap: break-word;
+            
+            white-space:pre-wrap;
         }
     </style>
 
