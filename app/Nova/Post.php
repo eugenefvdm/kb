@@ -60,7 +60,7 @@ class Post extends Resource
                 ->hideFromIndex(),
 
             BelongsToMany::make('Category'),
-            BelongsToMany::make('Tags'),
+            BelongsToMany::make('Tags'),  
 
             Text::make('Focus Keyword(s)', function () {
                 return $this->post_metas()->where('meta_key', '_yoast_wpseo_focuskw')->pluck('meta_value')[0] ?? '';
