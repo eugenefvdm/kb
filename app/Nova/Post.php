@@ -50,8 +50,8 @@ class Post extends Resource
         return [
             ID::make('ID', 'ID')->sortable(),
 
-            DateTime::make('Post Date')
-                ->withMeta(['value' => $this->post_date ?? date('Y-m-d h:i:s')])
+            DateTime::make('Post Modified')
+                ->withMeta(['value' => $this->post_modified ?? date('Y-m-d h:i:s')])
                 ->hideWhenUpdating(),
 
             Text::make('Post Title'),
@@ -111,14 +111,14 @@ class Post extends Resource
                 ->hideFromIndex()
                 ->hideFromDetail(),
 
-            DateTime::make('Post Date Gmt')
-                ->withMeta(['value' => $this->post_date_gmt ?? date('Y-m-d h:i:s')])
+            DateTime::make('Post Date')
+                ->withMeta(['value' => $this->post_date ?? date('Y-m-d h:i:s')])
                 ->hideWhenUpdating()
                 ->hideFromIndex()
                 ->hideFromDetail(),
 
-            DateTime::make('Post Modified')
-                ->withMeta(['value' => $this->post_modified ?? date('Y-m-d h:i:s')])
+            DateTime::make('Post Date Gmt')
+                ->withMeta(['value' => $this->post_date_gmt ?? date('Y-m-d h:i:s')])
                 ->hideWhenUpdating()
                 ->hideFromIndex()
                 ->hideFromDetail(),
