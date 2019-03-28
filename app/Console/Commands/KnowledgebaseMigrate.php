@@ -42,11 +42,11 @@ class KnowledgebaseMigrate extends Command
     public function handle()
     {
 
-        DB::table('wp_posts')->truncate();
-        DB::table('wp_terms')->truncate();
-        DB::table('wp_term_taxonomy')->truncate();
-        DB::table('wp_term_relationships')->truncate();
-        DB::table('wp_post_views')->truncate();
+//        DB::table('wp_posts')->truncate();
+//        DB::table('wp_terms')->truncate();
+//        DB::table('wp_term_taxonomy')->truncate();
+//        DB::table('wp_term_relationships')->truncate();
+//        DB::table('wp_post_views')->truncate();
 
         $categories = [];
         $tags       = [];
