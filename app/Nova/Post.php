@@ -2,15 +2,13 @@
 
 namespace App\Nova;
 
+use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
-use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Trix;
-use Laravel\Nova\Http\Requests\NovaRequest;
-use Yassi\NestedForm\NestedForm;
 
 class Post extends Resource
 {
@@ -56,26 +54,27 @@ class Post extends Resource
 
             Text::make('Post Title'),
 
+            Text::make('Category', function() {
+                $name = $this->category[0]->name ?? '';
+                return $name;
+            })->hideFromDetail()->hideWhenUpdating()->hideWhenCreating(),
+
             Text::make('Slug', 'post_name')
                 ->hideFromIndex(),
-
-            BelongsToMany::make('Category'),
-            BelongsToMany::make('Tags'),
 
             Text::make('Focus Keyword(s)', function () {
                 return $this->post_metas()->where('meta_key', '_yoast_wpseo_focuskw')->pluck('meta_value')[0] ?? '';
             })->hideFromIndex(),
 
-
-            Text::make('Focus', function () {
+            Text::make('SEO', function () {
                 $value = $this->post_metas()->where('meta_key', '_yoast_wpseo_linkdex')->pluck('meta_value')[0] ?? '';
                 return $value . '%';
-            }),
+            })->hideFromIndex(),
 
             Text::make('Content', function () {
                 $value = $this->post_metas()->where('meta_key', '_yoast_wpseo_content_score')->pluck('meta_value')[0] ?? '';
                 return $value . '%';
-            }),
+            })->hideFromIndex(),
 
             Trix::make('Post Content')->withFiles('public'),
 
@@ -84,8 +83,7 @@ class Post extends Resource
             Text::make('Post Type')
                 ->withMeta(['value' => $this->post_type ?? 'knowledgebase'])
                 ->hideWhenUpdating()
-                ->hideFromIndex()
-                ->hideFromDetail(),
+                ->hideFromIndex(),
 
             Text::make('Post Excerpt')
                 ->withMeta(['value' => $this->post_excerpt ?? 'n/a'])
@@ -128,6 +126,10 @@ class Post extends Resource
                 ->hideWhenUpdating()
                 ->hideFromIndex()
                 ->hideFromDetail(),
+
+            BelongsToMany::make('Category'),
+            BelongsToMany::make('Tags'),
+
         ];
     }
 
